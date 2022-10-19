@@ -1,0 +1,14 @@
+body {
+    background-color: bisque;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+}
+
+li {
+    list-style-type: none;
+}
+
