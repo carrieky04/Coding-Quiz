@@ -12,3 +12,26 @@ li {
     list-style-type: none;
 }
 
+.startquiz {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#answer-buttons {
+    display: flex;
+    flex-direction: column;
+}
+
+#answer-buttons a:hover {
+    border-color: green;
+}

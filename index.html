@@ -12,58 +12,28 @@
     <body>
         <header>
             <nav>
-                <li>View Higscores</li>
-                <li>Timer</li>
+                <li id="highscores">View Higscores</li>
+                <li id="timer">Timer</li>
             </nav>
         </header>
 
-        <section class="welcome">
+        <section class="startquiz">
         <h1>Welcome to the UW Coding Quiz!</h1>
             <p>please answer best to your abilities. If your answer is wrong the timer will start decreasing.</p>
-            <button>Begin!</button>
+            <button id="startBtn">START</button>
         </section>
 
-        <section class="card">
-            <h1>Commonly used data types DO NOT include</h1>
-            <button>strings</button>
-            <button>booleans</button>
-            <button>arrays</button>
-            <button>numbers</button>
+        <section class="container">
+            <h1 id="Question">Question</h1>
+            <div id="answer-buttons">
+                <button id="answerbtn1">Answer 1</button>
+                <button id="answerbtn2">Answer 2</button>
+                <button id="answerbtn3">Answer 3</button>
+                <button id="answerbtn4">Answer 4</button>
+            </div>
         </section>
 
-        <section class="card">
-            <h1>The condition in an if/else statment is enclosed with:</h1>
-            <button>quotes</button>
-            <button>curly brackets</button>
-            <button>paranthesis</button>
-            <button>forward slashes</button>
-        </section>
-
-        <section class="card">
-            <h1>String values must be enclosed within___when being used to assign varibles.</h1>
-            <button>quotes</button>
-            <button>curly brackets</button>
-            <button>parenthesis</button>
-            <button>forward slashes</button>
-        </section>
-
-        <section class="card">
-            <h1>Arrays in JavaScript can be used to store:</h1>
-            <button>numbers</button>
-            <button>booleans</button>
-            <button>other arrays</button>
-            <button>all of the above</button>
-        </section>
-
-        <section class="card">
-            <h1>A very useful tool used for debugging is:</h1>
-            <button>VS CODE</button>
-            <button>Git Hub</button>
-            <button>Chrome Dev Tools</button>
-            <button>Google</button>
-        </section>
-
-        <section class="alldone">
+        <!-- <section class="alldone">
             <h1>All Done!</h1>
                 <p>Your Final Score: </p>
                 <textarea>Enter your initials:</textarea>
@@ -74,7 +44,7 @@
             <h1>Current Highscores</h1>
             <button>GO BACK</button>
             <button>CLEAR SCORES</button>
-        </section>
+        </section> -->
         
         
         <script src="./script.js"></script>
