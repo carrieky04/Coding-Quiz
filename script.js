@@ -1,12 +1,17 @@
 var startBtn = document.getElementById("start-btn");
-var firstQuestion = document.querySelector (".startquiz");
+var welcomeScreen = document.querySelector (".startquiz");
 var questionContainer = document.querySelector("#hide");
 var shownQuestion = document.querySelector(".container");
 var questionHeading = document.querySelector(".question");
 var optionsContainer = document.querySelector(".option-buttons");
+var timerEl = document.querySelector(".timer");
+
 
 var score = 0;
-var timer = 75;
+var timer;
+var timerCount = 75;
+var highScores = [];
+
 
 
 const questions = [
@@ -39,50 +44,74 @@ const questions = [
 
 
 
+// function init () {
+//     showHighScores();
+// }
+
+
 startBtn.addEventListener("click", startQuiz);
-console.log(questions[0].question);
-questionHeading.textContent = questions[0].question
-for (let i = 0; i < questions[0].options.length; i++) {
-    console.log(questions[0].options[i]);
-    var optionBtn = document.createElement("button");
-    console.log(optionBtn);
-    optionBtn.innerHTML = questions[0].options[i];
-    optionsContainer.appendChild(optionBtn);
-  }
 
 
 
 function startQuiz() {
-    // alert('hi');  
-    firstQuestion.style.display = 'none';
-    start timer
-    score = 0
-}
-
-function setTimer () {
-    decrease timer if answer wrong
-
-}
-
-optionBtn.addEventListener("click", setNextQuestion)
-
-function setNextQuestion() {
+    welcomeScreen.style.display = 'none';
     questionContainer.style.display = 'flex';
-    if answer correct add to score
-    save score to localStorage
+    startTimer();
+    askQuestion();
+    // setNextQuestion();
 }
 
-function (quizOver) {
-    show user score
-    save initials
-    submit button
-    show high scores
+function startTimer () {
+    timer = setInterval (function() {
+        timerCount--;
+        timerEl.innerHTML = timerCount;
+    }, 1000);
 }
 
-function (showHighScores) {
-    display high scores
-    go back button
-    clear high scores button
+function askQuestion () {
+    questionHeading.textContent = questions[0].question
+    for (let i = 0; i < questions[0].options.length; i++) {
+        console.log(questions[0].options[i]);
+    var optionBtn = document.createElement("button");
+        console.log(optionBtn);
+    optionBtn.innerHTML = questions[0].options[i];
+    optionsContainer.appendChild(optionBtn);
+    }  
 }
 
 
+
+function answerQuestion () {
+    
+   
+}
+
+// optionBtn.addEventListener("click", setNextQuestion)
+
+// function setNextQuestion() {
+//     questionHeading.textContent = questions[1].question
+//     for (let i = 0; i < questions[1].options.length; i++) {
+//         console.log(questions[0].options[i]);
+//     var optionBtn = document.createElement("button");
+//         console.log(optionBtn);
+//     optionBtn.innerHTML = questions[1].options[i];
+//     optionsContainer.appendChild(optionBtn);
+//     }  
+    // if answer correct add to score
+    // save score to localStorage
+
+
+// function (quizOver) {
+//     show user score
+//     save initials
+//     submit button
+//     show high scores
+// }
+
+// function (showHighScores) {
+//     display high scores
+//     go back button
+//     clear high scores button
+// }
+
+// init();
