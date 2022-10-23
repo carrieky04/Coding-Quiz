@@ -40,12 +40,12 @@ li {
     margin-right: 200px; 
 }
 
-#answer-buttons {
+.option-buttons {
     display: flex;
     flex-direction: column;
 }
 
-#answer-buttons a:hover {
+.option-buttons a:hover {
     border-color: green;
 }
 
