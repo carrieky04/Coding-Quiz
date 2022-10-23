@@ -8,9 +8,7 @@ var timerEl = document.querySelector(".timer");
 // var textArea = document.querySelector(".show-results");
 
 var currentQuestion = {};
-var maxQuestions = 5;
-var acceptedAnswers = true;
-// var chosenQuestion = questions[Math.floor(Math.random() * questions.length)];
+var optionBtn = document.createElement("button");
 var score = 0;
 var timer;
 var timerCount = 75;
@@ -70,18 +68,7 @@ function startTimer () {
     }, 1000);
 }
 
-// function askQuestion () {
-//     questionHeading.textContent = questions[0].question
-//     for (let i = 0; i < questions[0].options.length; i++) {
-//         console.log(questions[0].options[i]);
-//     var optionBtn = document.createElement("button");
-//         console.log(optionBtn);
-//     optionBtn.innerHTML = questions[0].options[i];
-//     optionsContainer.appendChild(optionBtn); 
-//     optionBtn.setAttribute("style", "color:black; background: purple; margin-bottom: 10px; border-radius: 10px; padding: 5px;") ;
-//     optionBtn.addEventListener("click",nextQuestion);
-//     };  
-// } 
+
     
 function askQuestion () { 
     var questionsIndex = Math.floor(Math.random() * availableQuestions.length)
@@ -95,22 +82,26 @@ function askQuestion () {
     optionBtn.innerHTML = currentQuestion.options[i];
     optionsContainer.appendChild(optionBtn); 
     optionBtn.setAttribute("style", "color:black; background: purple; margin-bottom: 10px; border-radius: 10px; padding: 5px;") ;
-    optionBtn.addEventListener("click",setAnswer);
     };
-   
+    
 }
     
-var optionBtn = document.createElement("button");
 
-function setAnswer() {
-   
-    console.log("You did it!");
-        if (optionBtn === currentQuestion.answer) {
-        score++;
-        console.log("your score is: " + score);
-        }
-    }
-    
+optionBtn.addEventListener("click", e => {
+    var selectedOption = e.target;
+    var correctOption = currentQuestion.answer;
+    for (let i=0; i < currentQuestion.options.length; i++) {
+        if (selectedOption == correctOption) {
+            console.log("Yay!");
+            score++;
+
+        }else if (selectedOption !== correctOption) {
+            alert("You suck!");
+        }};
+})
+
+
+
 
 
 
