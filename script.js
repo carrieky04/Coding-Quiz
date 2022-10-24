@@ -20,27 +20,27 @@ const questions = [
     {
         question: "A variable with a ____ scope is visible everywhere.",
         options: ["global","local", "international", "regional"],
-        answer: 0,
+        answer: "global",
     },
     {
         question: "To get a value back from a function, use the ___ statement",
         options: ["if/else","return", "for", "invoking"],
-        answer: 1,
+        answer: "return",
     },
     {
         question: "The index of the first item in an array is ___.",
         options: ["1","undefined", "0", "first"],
-        answer: 2,
+        answer: "0",
     },
     {
         question: "To access an array item we use it's index wrapped in ___.",
         options: ["curly brackets","parenthesis", "forward slashes", "square brackets"],
-        answer: 3,
+        answer: "square bracket",
     },
     {
         question: "The _____ is the brower's internal representation of your web page.",
         options: ["CSS","DOM","HTML","JavaScript"],
-        answer: 4,
+        answer: "DOM",
     }
 ]
 
@@ -82,23 +82,26 @@ function askQuestion () {
     optionBtn.innerHTML = currentQuestion.options[i];
     optionsContainer.appendChild(optionBtn); 
     optionBtn.setAttribute("style", "color:black; background: purple; margin-bottom: 10px; border-radius: 10px; padding: 5px;") ;
+    optionBtn.addEventListener("click", compare)
+
     };
     
 }
     
 
-optionBtn.addEventListener("click", e => {
-    var selectedOption = e.target;
-    var correctOption = currentQuestion.answer;
-    for (let i=0; i < currentQuestion.options.length; i++) {
-        if (selectedOption == correctOption) {
+function compare(event) {
+    var correctOption = currentQuestion.options.answer;
+    correctOption = event.target;
+        if (correctOption) {
             console.log("Yay!");
             score++;
 
-        }else if (selectedOption !== correctOption) {
+        } else if (!correctOption) {
+            timer-- 
             alert("You suck!");
+            return;
         }};
-})
+
 
 
 
