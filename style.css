@@ -49,6 +49,24 @@ li {
     border-color: green;
 }
 
-#hide {
+#hide-questions {
     display: none;
+}
+
+#hide-score {
+    display: none;
+}
+
+.alldone {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-style: inset;
+    border-radius: 10px;
+    border-color: blueviolet;
+    flex-basis: auto;
+    padding: 20px;
+    margin-left: 200px;
+    margin-right: 200px; 
 }

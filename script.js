@@ -1,11 +1,13 @@
 var startBtn = document.getElementById("start-btn");
 var welcomeScreen = document.querySelector (".startquiz");
-var questionContainer = document.querySelector("#hide");
+var questionContainer = document.querySelector("#hide-questions");
 var shownQuestion = document.querySelector(".container");
 var questionHeading = document.querySelector(".question");
 var optionsContainer = document.querySelector(".option-buttons");
 var timerEl = document.querySelector(".timer");
-// var textArea = document.querySelector(".show-results");
+var showResult = document.querySelector(".result");
+var showScore = document.querySelector(".alldone");
+var userScore = document.querySelector(".userscore");
 
 var currentQuestion = {};
 var optionBtn = document.createElement("button");
@@ -13,6 +15,8 @@ var score = 0;
 var timer;
 var timerCount = 75;
 var highScores = [];
+var correctAnswer;
+var questionsIndex;
 
 
 
@@ -35,7 +39,7 @@ const questions = [
     {
         question: "To access an array item we use it's index wrapped in ___.",
         options: ["curly brackets","parenthesis", "forward slashes", "square brackets"],
-        answer: "square bracket",
+        answer: "square brackets",
     },
     {
         question: "The _____ is the brower's internal representation of your web page.",
@@ -55,60 +59,103 @@ startBtn.addEventListener("click", startQuiz);
 function startQuiz() {
     welcomeScreen.style.display = 'none';
     questionContainer.style.display = 'flex';
-    availableQuestions = [...questions];
     startTimer();
-    askQuestion();
-   
+    askQuestion(); 
 }
 
-function startTimer () {
+function startTimer() {
     timer = setInterval (function() {
         timerCount--;
         timerEl.innerHTML = "Time left: " + timerCount;
+
+    if (timerCount === 0) {
+        clearInterval(timer);
+    }
     }, 1000);
 }
 
 
     
-function askQuestion () { 
-    var questionsIndex = Math.floor(Math.random() * availableQuestions.length)
-    currentQuestion = availableQuestions[questionsIndex]
+function askQuestion() { 
+    questionsIndex = Math.floor(Math.random() * questions.length)
+    currentQuestion = questions[questionsIndex]
     questionHeading.textContent = currentQuestion.question
 
-    for (let i = 0; i < currentQuestion.options.length; i++) {
-        console.log(currentQuestion.options[i]);
-    var optionBtn = document.createElement("button");
-        console.log(optionBtn);
-    optionBtn.innerHTML = currentQuestion.options[i];
-    optionsContainer.appendChild(optionBtn); 
-    optionBtn.setAttribute("style", "color:black; background: purple; margin-bottom: 10px; border-radius: 10px; padding: 5px;") ;
-    optionBtn.addEventListener("click", compare)
+    //Global
+    correctAnswer = currentQuestion.answer;
 
-    };
-    
+    for (let i = 0; i < currentQuestion.options.length; i++) {
+       var optionBtn = document.createElement("button");
+        optionBtn.innerHTML = currentQuestion.options[i];
+        optionBtn.value = currentQuestion.options[i];
+        optionsContainer.appendChild(optionBtn); 
+        optionBtn.setAttribute("style", "color:black; background: purple; margin-bottom: 10px; border-radius: 10px; padding: 5px;") ;
+        optionBtn.addEventListener("click", compare)
+    }; 
 }
     
-
 function compare(event) {
-    var correctOption = currentQuestion.options.answer;
-    correctOption = event.target;
-        if (correctOption) {
-            console.log("Yay!");
-            score++;
+    let userClick = event.target.value;
+        if (userClick == correctAnswer) {
+            youRight();
 
-        } else if (!correctOption) {
-            timer-- 
-            alert("You suck!");
-            return;
-        }};
+            for (let i = 0; i < questions.length; i++) {
+                if (questions[i].answer == userClick) {
+                    questions.pop(questions[i]);
+                    break;
+                }
+            }
+        
+            while (optionsContainer.firstChild) {
+                optionsContainer.removeChild(optionsContainer.firstChild);
+            }
+        
+            if (questions.length == 0){
+                setScore();
+            }
+            askQuestion();
+
+        } else {
+            youWrong();  
+            
+            for (let i = 0; i < questions.length; i++) {
+                if (questions[i].answer !== userClick) {
+                    questions.pop(questions[i]);
+                    break;
+                }
+            }
+        
+            while (optionsContainer.firstChild) {
+                optionsContainer.removeChild(optionsContainer.firstChild);
+            }
+        
+            if (questions.length == 0){
+                setScore();
+            }
+            askQuestion();
+
+        };
+    }
 
 
 
+function youRight() {
+    showResult.textContent = "Correct!";
+    score ++;
+}
 
 
 
+function youWrong() {
+    showResult.textContent = "You Suck!";
+    // timer--
+}
 
-
+function setScore() {
+    questionContainer.style.display = 'flex';
+    userScore.textContent = score;
+    localStorage.setItem("user score", score); 
+}
 
 
 
