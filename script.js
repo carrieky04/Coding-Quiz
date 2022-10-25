@@ -8,7 +8,7 @@ var timerEl = document.querySelector(".timer");
 var showResult = document.querySelector(".result");
 var showScore = document.querySelector(".alldone");
 var userScore = document.querySelector(".userscore");
-var userInitials = document.querySelector(".initials").value;
+// var userInitials = document.querySelector(".initials");
 var submitBtn = document.querySelector(".submit");
 var showHighScores = document.querySelector(".highscores");
 var savedHighScores = document.querySelector(".savedhighscores");
@@ -141,24 +141,33 @@ function setScore() {
     questionContainer.style.display = 'none';
     showScore.style.display = 'flex';
     userScore.textContent = "Final score: " + score;
-    localStorage.setItem("user score", score); 
-    localStorage.setItem("user initials", userInitials);
-    //save userInitials
+    localStorage.setItem("user score", score);  
+    
 }
 
 submitBtn.addEventListener("click", function() {
     showScore.style.display = 'none';
     showHighScores.style.display = 'flex';
-    savedHighScores.textContent = localStorage.getItem("user score",score);
-    // savedHighScores.textContent = localStorage.getItem("user initials", userInitials);
+    
+    var userInitials = document.querySelector(".initials").value;
+        localStorage.setItem("user-initials", userInitials);
+    
+    var storedScore = localStorage.getItem("user score", score);
+    var storedUserInitials = localStorage.getItem("user-initials", userInitials);
+    
+    savedHighScores.textContent = storedUserInitials + " - " + storedScore;
+   
 });
+
+
 
 goBackBtn.addEventListener("click", function() {
     showHighScores.style.display = 'none';
     welcomeScreen.style.display = 'flex';
-    clearInterval(timer);
-    startTimer();
+    
 });
+
+
 
 
 
