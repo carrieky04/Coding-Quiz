@@ -46,9 +46,6 @@ li {
     flex-direction: column;
 }
 
-.option-buttons a:hover {
-    border-color: green;
-}
 
 #hide-questions {
     display: none;

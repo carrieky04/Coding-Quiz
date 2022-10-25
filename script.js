@@ -8,10 +8,9 @@ var shownQuestion = document.querySelector(".container");
 var questionHeading = document.querySelector(".question");
 var optionsContainer = document.querySelector(".option-buttons");
 var timerEl = document.querySelector(".timer");
-var currentQuestion = {};
-var optionBtn = document.createElement("button");
-var score = 0;
 var timer;
+var currentQuestion = {};
+var score = 0;
 var timerCount = 75;
 var correctAnswer;
 var questionsIndex;
@@ -73,7 +72,7 @@ function startTimer() {
         timerCount--;
         timerEl.innerHTML = "Time left: " + timerCount;
 
-    if (timerCount === 0) {
+    if (timerCount === 0 || questions == 0) {
         clearInterval(timer);
         setScore();
     }
@@ -116,6 +115,7 @@ function compare(event) {
         
     if (questions.length == 0){
         setScore();
+        
     } else {
         askQuestion();
     }
@@ -160,8 +160,7 @@ submitBtn.addEventListener("click", function() {
 // takes user back to welcome page
 goBackBtn.addEventListener("click", function() {
     showHighScores.style.display = 'none';
-    welcomeScreen.style.display = 'flex';
-    startTimer();   
+    welcomeScreen.style.display = 'flex';  
 });
 
 
