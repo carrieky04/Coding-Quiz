@@ -1,31 +1,32 @@
+//variables for welcome page
 var startBtn = document.getElementById("start-btn");
 var welcomeScreen = document.querySelector (".startquiz");
+
+//variables for questions container
 var questionContainer = document.querySelector("#hide-questions");
 var shownQuestion = document.querySelector(".container");
 var questionHeading = document.querySelector(".question");
 var optionsContainer = document.querySelector(".option-buttons");
 var timerEl = document.querySelector(".timer");
+var currentQuestion = {};
+var optionBtn = document.createElement("button");
+var score = 0;
+var timer;
+var timerCount = 75;
+var correctAnswer;
+var questionsIndex;
+
+//variables for displaying and saving scores
 var showResult = document.querySelector(".result");
 var showScore = document.querySelector(".alldone");
 var userScore = document.querySelector(".userscore");
-// var userInitials = document.querySelector(".initials");
 var submitBtn = document.querySelector(".submit");
 var showHighScores = document.querySelector(".highscores");
 var savedHighScores = document.querySelector(".savedhighscores");
 var goBackBtn = document.querySelector(".goback");
 
 
-var currentQuestion = {};
-var optionBtn = document.createElement("button");
-var score = 0;
-var timer;
-var timerCount = 75;
-var highScores = [];
-var correctAnswer;
-var questionsIndex;
-
-
-
+//questions in an object literal
 let questions = [
     {
         question: "A variable with a ____ scope is visible everywhere.",
@@ -57,10 +58,8 @@ let questions = [
 
 
 
-
+//user starts quiz
 startBtn.addEventListener("click", startQuiz);
-
-
 
 function startQuiz() {
     welcomeScreen.style.display = 'none';
@@ -82,13 +81,12 @@ function startTimer() {
 }
 
 
-    
+// generates random questions   
 function askQuestion() { 
     questionsIndex = Math.floor(Math.random() * questions.length)
     currentQuestion = questions[questionsIndex]
     questionHeading.textContent = currentQuestion.question
 
-    //Global
     correctAnswer = currentQuestion.answer;
 
     for (let i = 0; i < currentQuestion.options.length; i++) {
@@ -100,7 +98,8 @@ function askQuestion() {
         optionBtn.addEventListener("click", compare)
     }; 
 }
-    
+ 
+// checks to see what option user clicked and discards used question from object array
 function compare(event) {
     let userClick = event.target.value;
         if (userClick == correctAnswer) {
@@ -122,29 +121,28 @@ function compare(event) {
     }
 };
 
-
-
-
+//runs if user picks correct answer
 function youRight() {
     showResult.textContent = "Correct!";
     score ++;
 }
 
-
-
+// runs if user picks wrong answer
 function youWrong() {
     showResult.textContent = "You Suck!";
     timerCount -= 10;
 }
 
+// runs when all questions have been answered 
 function setScore() {
     questionContainer.style.display = 'none';
     showScore.style.display = 'flex';
     userScore.textContent = "Final score: " + score;
     localStorage.setItem("user score", score);  
-    
 }
 
+
+// runs when user submits initials and score is saved
 submitBtn.addEventListener("click", function() {
     showScore.style.display = 'none';
     showHighScores.style.display = 'flex';
@@ -155,16 +153,15 @@ submitBtn.addEventListener("click", function() {
     var storedScore = localStorage.getItem("user score", score);
     var storedUserInitials = localStorage.getItem("user-initials", userInitials);
     
-    savedHighScores.textContent = storedUserInitials + " - " + storedScore;
-   
+    savedHighScores.textContent = storedUserInitials + " - " + storedScore; 
 });
 
 
-
+// takes user back to welcome page
 goBackBtn.addEventListener("click", function() {
     showHighScores.style.display = 'none';
     welcomeScreen.style.display = 'flex';
-    
+    startTimer();   
 });
 
 
