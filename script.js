@@ -8,6 +8,12 @@ var timerEl = document.querySelector(".timer");
 var showResult = document.querySelector(".result");
 var showScore = document.querySelector(".alldone");
 var userScore = document.querySelector(".userscore");
+var userInitials = document.querySelector(".initials").value;
+var submitBtn = document.querySelector(".submit");
+var showHighScores = document.querySelector(".highscores");
+var savedHighScores = document.querySelector(".savedhighscores");
+var goBackBtn = document.querySelector(".goback");
+
 
 var currentQuestion = {};
 var optionBtn = document.createElement("button");
@@ -20,7 +26,7 @@ var questionsIndex;
 
 
 
-const questions = [
+let questions = [
     {
         question: "A variable with a ____ scope is visible everywhere.",
         options: ["global","local", "international", "regional"],
@@ -70,6 +76,7 @@ function startTimer() {
 
     if (timerCount === 0) {
         clearInterval(timer);
+        setScore();
     }
     }, 1000);
 }
@@ -98,44 +105,23 @@ function compare(event) {
     let userClick = event.target.value;
         if (userClick == correctAnswer) {
             youRight();
-
-            for (let i = 0; i < questions.length; i++) {
-                if (questions[i].answer == userClick) {
-                    questions.pop(questions[i]);
-                    break;
-                }
-            }
-        
-            while (optionsContainer.firstChild) {
-                optionsContainer.removeChild(optionsContainer.firstChild);
-            }
-        
-            if (questions.length == 0){
-                setScore();
-            }
-            askQuestion();
-
         } else {
-            youWrong();  
-            
-            for (let i = 0; i < questions.length; i++) {
-                if (questions[i].answer !== userClick) {
-                    questions.pop(questions[i]);
-                    break;
-                }
-            }
-        
-            while (optionsContainer.firstChild) {
-                optionsContainer.removeChild(optionsContainer.firstChild);
-            }
-        
-            if (questions.length == 0){
-                setScore();
-            }
-            askQuestion();
+            youWrong(); 
+        }
 
-        };
+    questions = questions.filter((question) => question.answer != correctAnswer);
+        
+    while (optionsContainer.firstChild) {
+        optionsContainer.removeChild(optionsContainer.firstChild);
+        }
+        
+    if (questions.length == 0){
+        setScore();
+    } else {
+        askQuestion();
     }
+};
+
 
 
 
@@ -148,15 +134,31 @@ function youRight() {
 
 function youWrong() {
     showResult.textContent = "You Suck!";
-    // timer--
+    timerCount -= 10;
 }
 
 function setScore() {
-    questionContainer.style.display = 'flex';
-    userScore.textContent = score;
+    questionContainer.style.display = 'none';
+    showScore.style.display = 'flex';
+    userScore.textContent = "Final score: " + score;
     localStorage.setItem("user score", score); 
+    localStorage.setItem("user initials", userInitials);
+    //save userInitials
 }
 
+submitBtn.addEventListener("click", function() {
+    showScore.style.display = 'none';
+    showHighScores.style.display = 'flex';
+    savedHighScores.textContent = localStorage.getItem("user score",score);
+    // savedHighScores.textContent = localStorage.getItem("user initials", userInitials);
+});
+
+goBackBtn.addEventListener("click", function() {
+    showHighScores.style.display = 'none';
+    welcomeScreen.style.display = 'flex';
+    clearInterval(timer);
+    startTimer();
+});
 
 
 
